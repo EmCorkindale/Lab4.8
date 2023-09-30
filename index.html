@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using Moment</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data-10-year-range.min.js></script>
+    
+</head>
+
+<body>
+    <h1>Using Moment</h1>
+    <h2>My Birthdate:</h2>
+    <div id="displayBirthdate"></div>
+    <h2>The Current Date:</h2>
+    <div id="displayJsDate"></div>
+    <h2>The Number of Days Between:</h2>
+    <div id="displayDaysBetween"></div>
+    <h2>Time since my birthdate</h2>
+    <div id="displayTimeSinceBirthDate"></div>
+    <h2>Which of these dates is closest to today?</h2>
+    <div id="closestDate"></div>
+    <h2>Which of these dates comes first?</h2>
+    <div id="firstDate"></div>
+    <h2>What is the current time in London?</h2>
+    <div id="londonTime"></div>
+</body>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+        let birthdate = moment("1992-10-09")
+
+        let currentDate = moment();
+
+        let eDisplayBirthdate = document.getElementById('displayBirthdate');
+        eDisplayBirthdate.innerHTML = birthdate;
+        let eDisplayJsDate = document.getElementById('displayJsDate');
+        eDisplayJsDate.innerHTML = currentDate;
+        let daysBetween = currentDate.diff(birthdate, 'days')
+        let eDisplayDaysBetween = document.getElementById('displayDaysBetween')
+        eDisplayDaysBetween.innerHTML = daysBetween;
+        let years = currentDate.diff(birthdate, 'years');
+        let months = currentDate.diff(birthdate, 'months') % 12;
+        let days = currentDate.diff(birthdate, 'days') % 30;
+
+        let timeSinceBirthDate = `${years} years, ${months} months, and ${days} days`;
+
+        let eDisplayTimeSinceBirthDate = document.getElementById('displayTimeSinceBirthDate')
+        eDisplayTimeSinceBirthDate.innerHTML = timeSinceBirthDate;
+    })
+    document.addEventListener("DOMContentLoaded", function() {
+        let dateA = moment("2017-09-16");
+        let dateB = moment("2016-08-28");
+        let todayDate = moment();
+        let closestDateElement = document.getElementById("closestDate");
+        let diffBetweenDateA = todayDate - dateA;
+        let diffBetweenDateB = todayDate - dateB;
+        if (diffBetweenDateA > diffBetweenDateB){
+            closestDateElement.innerHTML = `Out of these two dates ${dateA.format('YYYY-MM-DD')} and ${dateB.format('YYYY-MM-DD')}, ${dateB.format('YYYY-MM-DD')} is the closest date to today.`
+        } else {
+            closestDateElement.innerHTML = `Out of these two dates ${dateA.format('YYYY-MM-DD')} and ${dateB.format('YYYY--MM-DD')}, ${dateA.format('YYYY-MM-DD')} is the closest date to today.`
+        }
+    })
+    document.addEventListener("DOMContentLoaded", function() {
+        let date1 = moment("2006-09-15");
+        let date2 = moment("2000-06-19");
+        let firstDateElement = document.getElementById("firstDate");
+if (date1.isBefore(date2)){
+    firstDateElement.innerHTML = `${date1.format('YYYY-MM-DD')} came before ${date2.format('YYYY-MM-DD')}.`
+} else {firstDateElement.innerHTML = `${date2.format('YYYY-MM-DD')} came before ${date1.format('YYYY-MM-DD')}.`
+}
+    })
+    document.addEventListener("DOMContentLoaded", function(){
+    let londonTimeElement = document.getElementById("londonTime");
+    let londonTime = moment().tz('Europe/London').format('YYYY-MM-DD HH:mm:ss');
+    londonTimeElement.innerHTML = `The time in London is ${londonTime}.`;
+})
+</script>
+
+</html>
